@@ -1,0 +1,14 @@
+<div class="pannel">
+	<input type="text" ng-model="title" placeholder="Titre"/>
+	<input type="number" ng-model="charge" min="1" max="10" placeholder="Défauts"/>
+
+	<ul>
+		<li ng-repeat="node in nodes">
+			Synergie avec {{ node.title }} : <input type="number" ng-model="node.currentSynergy" min="0" max="10"/>
+		</li>
+	</ul>
+
+	<input type="button" ng-click="add()" value="Add"/>
+	<input type="button" ng-click="save()" value="Save"/>
+	<input type="file" id="files"/>
+</div>
