@@ -1,0 +1,132 @@
+body{
+	width:70vw;
+	height:100vh;
+	margin:0;
+	padding:0;
+
+	font-family: Helvetica;
+}
+
+syner-graph{
+	position:absolute;
+	top:0;
+	left:0;
+
+	z-index:1;
+}
+
+pannel{
+	position:absolute;
+	width:30vw;
+	height:95vh;
+	right:0;
+	top:0;
+
+	z-index:2;
+
+	overflow-y:scroll;
+
+	border-left:1px solid rgba(0,0,0,0.5);
+
+	padding-bottom: 5vh;
+}
+
+header{
+	border-bottom: 1px solid rgba(0,0,0,0.5);
+	height:50px;
+}
+
+header li{
+	display:inline-block;
+	width: 10vw;
+	text-align:center;
+	border:1px solid rgba(0,0,0,0.5);
+	border-bottom:1px solid transparent;
+	height:49px;
+	line-height: 49px;
+	margin:0;
+	padding:0;
+
+	cursor:pointer;
+
+	border-top-left-radius: 3px; 
+	border-top-right-radius: 3px; 
+
+	font-family: "Palatino Linotype";
+}
+
+header li.on{
+	border-bottom: 1px solid white;
+}
+
+.button{
+	border: 1px solid rgba(0,0,0,0.5);
+	border-radius:3px;
+	padding: 2px 5px;
+	cursor:pointer;
+}
+
+.button:hover{
+	background-color:rgba(0,0,0,0.1);
+}
+
+.liste .button{
+	margin-left:20px;
+}
+
+.liste ul .button{
+	float:right;
+	margin-left: 5px;
+}
+
+section{
+	width:90%;
+	margin-left:5%;
+	margin-right:5%;
+}
+
+section li{
+	height:40px;
+	display:inline-block;
+	width:100%;
+}
+
+ul{
+	margin:0;
+	padding:0;
+
+	margin-top:20px;
+}
+
+header > ul{
+	text-align: center;
+}
+
+input[type="file"]{
+	opacity:0px;
+	position:absolute;
+	left:-999999px;
+}
+
+.liste ul{
+	margin-bottom:20px;
+}
+
+h1{
+	font-size: 1.2em;
+}
+
+h2{
+	font-size:1.1em;
+}
+
+.ajouter input[type="text"], .ajouter textarea{
+	width:100%;
+	border-radius:3px;
+	border:1px solid rgba(0,0,0,0.5);
+	padding:3px;
+}
+
+.ajouter textarea{
+	height:40px;
+}

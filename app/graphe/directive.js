@@ -26,6 +26,9 @@
 							stroke: "black"
 						});
 					link.exit().remove();
+
+					link.append("title")
+						.text(function(d){return d.distance;});
 				}
 
 				function nodify(){
@@ -37,18 +40,20 @@
                 		.text(function(d) { return d.title; });
 				}
 
-				var force = d3.layout.force()
+				var width = $("body").width(),
+					height = $("body").height(),
+					force = d3.layout.force()
 							.nodes(Data.nodes)
 						    .links(Data.links)
-						    .size([500, 500])
+						    .size([width, height])
 						    .linkStrength(1)
 						    .linkDistance(linkDistance)
 						    .charge(nodeCharge)
 						    .gravity(1)
 						    .start(),
 					svg = d3.select("syner-graph").append("svg")
-							.attr("width", 500)
-							.attr("height", 500),
+							.attr("width", width)
+							.attr("height", height),
 					link = svg.selectAll(".link"),
 					node = svg.selectAll(".node");
 

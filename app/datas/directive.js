@@ -31,6 +31,10 @@
 				    }
 
 				document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+				scope.$watch("on", function(){
+					$("pannel").scrollTop(0);
+				});
 			}
 		}
 	}]);

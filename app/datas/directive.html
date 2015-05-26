@@ -1,14 +1,55 @@
 <div class="pannel">
-	<input type="text" ng-model="title" placeholder="Titre"/>
-	<input type="number" ng-model="charge" min="1" max="10" placeholder="Défauts"/>
+	<header>
+		<ul>
+			<li 
+				ng-click="on = 'liste'"
+				ng-class="{on: on === 'liste'}">Liste</li><!-- 
+		--><li 
+				ng-click="on = 'ajouter'; init()"
+				ng-class="{on: on === 'ajouter'}">Ajouter</li>
+		</ul>
+	</header>
+	<section class="liste" ng-show="on == 'liste'">
 
-	<ul>
-		<li ng-repeat="node in nodes">
-			Synergie avec {{ node.title }} : <input type="number" ng-model="node.currentSynergy" min="0" max="10"/>
-		</li>
-	</ul>
+		<ul>
+			<li ng-repeat="node in nodes">
+				{{ node.title }}
+				<span ng-click="remove(node)" class="button">remove</span>
+				<span ng-click="edit(node)" class="button">edit</span>
+			</li>
+		</ul>
 
-	<input type="button" ng-click="add()" value="Add"/>
-	<input type="button" ng-click="save()" value="Save"/>
-	<input type="file" id="files"/>
+		<span class="button" ng-click="save()">Save</span>
+		<label class="button" for="files">
+			<input type="file" id="files"/>
+			Load
+		</label>
+		
+	</section>
+	<section class="ajouter" ng-show="on == 'ajouter'">
+
+		<div class="group">
+			<h1>Description de la carte</h1>
+			<h2>Titre</h2>
+			<input type="text" ng-model="title" placeholder="Titre"/>
+			<h2>Description</h2>
+			<textarea ng-model="description" placeholder="Description"></textarea>
+			<h2>Niveau de défaut</h2>
+			<p>Entre 1 et 10</p>
+			<input type="number" ng-model="charge" min="1" max="10" placeholder="Défauts"/>
+		</div>
+
+		<ul>
+			<h1>Synergies</h1>
+			<p>Entre 0 et 10, 0 étant aucune synergie avec la carte et 10 étant une combo</p>
+			<li ng-repeat="node in nodes | filter:toFilter">
+				{{ node.title }} : <input type="number" ng-model="node.currentSynergy" min="0" max="10"/>
+			</li>
+		</ul>
+
+		<span class="button" ng-click="add()">Add</span>
+
+	</section>
+	
+
 </div>

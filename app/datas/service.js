@@ -8,12 +8,12 @@
 				distance: 0
 			},
 			defaultNode = {
-				charge: 0,
+				charge: 1,
 				title: "Default",
 				currentSynergy: 0
 			};
 
-		serv.nodes = [{charge:3, title:"Athreos"}];
+		serv.nodes = [];
 		serv.links = [];
 
 		serv.createNewNode = function(){
@@ -24,10 +24,28 @@
 			return $.extend(true, {}, defaultLink);
 		};
 
-		serv.add = function(node, links){
+		serv.add = function(node, links, removeLinks){
+			var indexs = [], i = 0;
 			$rootScope.$broadcast("stop-graph");
 
-			serv.nodes.push(node);
+			if(!node.index) serv.nodes.push(node);
+
+			serv.links.forEach(function(link){
+				removeLinks.some(function(distant){
+					if(link === distant){
+						indexs.push(i);
+						return true;
+					}
+				});
+				i++;
+			});
+
+			for (var i = indexs.length - 1; i >= 0; i--) {
+				/*console.log(indexs[i]);
+				console.log($.extend(true, {}, serv.links[indexs[i]]));*/
+				serv.links.splice(indexs[i], 1);
+			};
+
 			Array.prototype.push.apply(serv.links, links);
 
 			$rootScope.$broadcast("update-graph");
@@ -46,6 +64,34 @@
 
 			Array.prototype.push.apply(serv.nodes, newDatas.nodes);
 			Array.prototype.push.apply(serv.links, newDatas.links);
+
+			$rootScope.$broadcast("update-graph");
+		};
+
+		serv.remove = function(node){
+			$rootScope.$broadcast("stop-graph");
+
+			var linksToRemove = [],
+				i = 0;
+			serv.links.forEach(function(link){
+				if(link.source.index === node.index || link.target.index === node.index){
+					linksToRemove.push(i);
+				}
+				i++;
+			});
+			for(i=linksToRemove.length-1; i >= 0; i--){
+				serv.links.splice(linksToRemove[i], 1);
+			}
+
+			i = 0;
+			serv.nodes.some(function(item){
+				if(item.index === node.index){
+					serv.nodes.splice(i, 1);
+					return true;
+				}
+				i++
+				return false;
+			});
 
 			$rootScope.$broadcast("update-graph");
 		};
