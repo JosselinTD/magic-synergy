@@ -1,19 +1,27 @@
 (function(){
 	angular.module("synergy")
 	.directive("synerGraph", ["Data", function(Data){
-
-		function linkDistance(link){
-			return link.distance*10;
-		}
-
-		function nodeCharge(node){
-			return node.charge*-1000;
-		}
-
 		return {
 			restrict: "EA",
-			scope: {},
 			link: function(scope, element){
+
+				function linkDistance(link){
+					return link.distance/scope.linkDistanceFactor;
+				}
+
+				function nodeCharge(node){
+					return node.charge*-scope.nodeChargeFactor;
+				}
+
+				//Parameters
+				scope.linkStrength = 1;
+				scope.linkDistanceFactor = 10;
+				scope.nodeChargeFactor = 1000;
+				scope.gravity = 1;
+
+				scope.$watchGroup(["linkStrength", "linkDistanceFactor", "nodeChargeFactor", "gravity"], function(){
+					force.start();
+				});
 
 				function linkify(){
 					link = link.data(force.links(), function(d) { return d.source.title + "-" + d.target.title; });
@@ -46,10 +54,10 @@
 							.nodes(Data.nodes)
 						    .links(Data.links)
 						    .size([width, height])
-						    .linkStrength(1)
+						    .linkStrength(scope.linkStrength)
 						    .linkDistance(linkDistance)
 						    .charge(nodeCharge)
-						    .gravity(1)
+						    .gravity(scope.gravity)
 						    .start(),
 					svg = d3.select("syner-graph").append("svg")
 							.attr("width", width)
