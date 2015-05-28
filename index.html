@@ -14,10 +14,16 @@
 				ng-bind="(isOpen ? 'Cacher les paramètres' : 'Afficher les paramètres')"
 				ng-click="isOpen = !isOpen"></header>
 			<article ng-show="isOpen">
-				Flexibilité des liens ({{ linkStrength }}) : <input type="range" ng-model="linkStrength" min="0" max="1" step="0.1"/><br/>
-				Multiplicateur de synergie ({{ linkDistanceFactor }}) : <input type="range" ng-model="linkDistanceFactor" min="0" max="100" step="1"/><br/>
-				Multiplicateur de défauts ({{ nodeChargeFactor }}) : <input type="range" ng-model="nodeChargeFactor" min="0" max="10000" step="100"/><br/>
-				Attraction du centre ({{ gravity }}) : <input type="range" ng-model="gravity" min="0" max="10" step="0.1"/><br/>
+				<table>
+					<tr>
+						<td>Multiplicateur de synergie ({{ linkDistanceFactor }}) :</td>
+						<td><input type="range" ng-model="linkDistanceFactor" min="0" max="10" step="1"/></td>
+					</tr>
+					<tr>
+						<td>Multiplicateur de défauts ({{ nodeChargeFactor }}) :</td>
+						<td><input type="range" ng-model="nodeChargeFactor" min="0" max="100" step="1"/></td>
+					</tr>
+				</table>
 			</article>
 		</div>
 	</syner-graph>

@@ -6,18 +6,16 @@
 			link: function(scope, element){
 
 				function linkDistance(link){
-					return link.distance/scope.linkDistanceFactor;
+					return link.distance * link.distance * scope.linkDistanceFactor; //link.distance/scope.linkDistanceFactor;
 				}
 
 				function nodeCharge(node){
-					return node.charge*-scope.nodeChargeFactor;
+					return node.charge * 1000 * -1 * scope.nodeChargeFactor; //node.charge*-scope.nodeChargeFactor;
 				}
 
 				//Parameters
-				scope.linkStrength = 1;
-				scope.linkDistanceFactor = 10;
-				scope.nodeChargeFactor = 1000;
-				scope.gravity = 1;
+				scope.linkDistanceFactor = 1;
+				scope.nodeChargeFactor = 1;
 
 				scope.$watchGroup(["linkStrength", "linkDistanceFactor", "nodeChargeFactor", "gravity"], function(){
 					force.start();
@@ -54,10 +52,10 @@
 							.nodes(Data.nodes)
 						    .links(Data.links)
 						    .size([width, height])
-						    .linkStrength(scope.linkStrength)
 						    .linkDistance(linkDistance)
 						    .charge(nodeCharge)
-						    .gravity(scope.gravity)
+						    .gravity(1)
+						    .alpha(1)
 						    .start(),
 					svg = d3.select("syner-graph").append("svg")
 							.attr("width", width)

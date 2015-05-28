@@ -12,7 +12,7 @@
 			$scope.charge = node.charge || 0;
 			$scope.description = node.description || "";
 
-			if(!node.index){
+			if(!node.title){
 				Data.nodes.forEach(function(distant){
 					distant.currentSynergy = 0;
 					distant.relatedLink = undefined;
@@ -26,7 +26,6 @@
 					}
 				});
 			}
-			
 		}
 
 		$scope.init = init;
@@ -38,7 +37,7 @@
 				newLinks = [],
 				removeLinks = [];
 
-			if(editting.index){
+			if(editting.title){
 				node = editting;
 			}
 
@@ -46,9 +45,8 @@
 			node.charge = parseInt($scope.charge);
 			node.description = $scope.description;
 
-			if(editting.index){
+			if(editting.title){
 				Data.nodes.forEach(function(target){
-
 					if((target.currentSynergy > 0 && target.relatedLink && target.currentSynergy !== 10-parseInt(target.relatedLink.distance)) ||
 						(target.currentSynergy > 0)){
 
@@ -64,8 +62,6 @@
 						if(target.relatedLink){
 							removeLinks.push(target.relatedLink);
 						}
-
-						console.log(target);
 					} else if(target.relatedLink && target.currentSynergy === 0){
 						removeLinks.push(target.relatedLink);
 					}

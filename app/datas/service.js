@@ -28,7 +28,7 @@
 			var indexs = [], i = 0;
 			$rootScope.$broadcast("stop-graph");
 
-			if(!node.index) serv.nodes.push(node);
+			if(node.index === undefined) serv.nodes.push(node);
 
 			serv.links.forEach(function(link){
 				removeLinks.some(function(distant){
@@ -41,8 +41,6 @@
 			});
 
 			for (var i = indexs.length - 1; i >= 0; i--) {
-				/*console.log(indexs[i]);
-				console.log($.extend(true, {}, serv.links[indexs[i]]));*/
 				serv.links.splice(indexs[i], 1);
 			};
 
